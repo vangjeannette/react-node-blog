@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
+const session = require('express-session')
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -57,6 +58,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET_KEY, {
       expiresIn: 86400,
     });
+    session.token = token;
     res.status(200).json({ auth: true, token, email });
   });
 });
