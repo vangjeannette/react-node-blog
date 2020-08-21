@@ -36,6 +36,10 @@ router.post('/register', async (req, res) => {
   });
   try {
     await user.save();
+    const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET_KEY, {
+      expiresIn: 86400,
+    });
+    session.token = token;
     res.status(201).json({ message: 'Account created' });
   } catch (err) {
     res.status(400).json({ message: err.message });
