@@ -10,7 +10,7 @@ class ArticlesListComponent extends React.Component {
   }
 
   componentDidMount = async () => {
-    const response = await fetch('/articles');
+    const response = await fetch('articles');
     const data = await response.json();
     this.setState({ articles: data });
   };
@@ -20,7 +20,11 @@ class ArticlesListComponent extends React.Component {
         {this.state.articles.map((article, index) => {
           return (
             <li key={index}>
-              <ArticleItemComponent />
+              <ArticleItemComponent 
+                title={article.title}
+                text={article.title}
+                imageUrl={article.imageUrl}
+              />
             </li>
           );
         })}
