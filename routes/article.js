@@ -11,7 +11,6 @@ router.use(bodyParser.json());
 
 // Get all articles
 router.get('/articles', async (req, res) => {
-  console.log(req)
   try {
     const articles = await Article.find();
     res.status(200).json(articles);
