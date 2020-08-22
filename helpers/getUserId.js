@@ -1,7 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const session = require('express-session');
 
 function getUserId(req, res, next) {
   const { token } = req.body;
