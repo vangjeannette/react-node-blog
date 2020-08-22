@@ -4,6 +4,7 @@ import ArticlesList from './components/ArticlesList';
 import Login from './components/Login';
 import SignUpComponent from './components/SignUp';
 import './App.css';
+import AddArticleComponent from './components/AddArticle';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <ArticlesList />
       <Login />
       <SignUpComponent />
+      <AddArticleComponent />
     </div>
   );
 }
