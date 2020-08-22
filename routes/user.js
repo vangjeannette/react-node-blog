@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
       expiresIn: 86400,
     });
     session.token = token;
-    res.status(201).json({ message: 'Account created', token: session.token });
+    res.status(201).json({ message: 'Account created', token });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
