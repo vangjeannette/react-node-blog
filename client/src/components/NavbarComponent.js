@@ -23,6 +23,14 @@ class NavbarComponent extends React.Component {
     this.setState({ userToken: token, isUserConnected: true });
   };
 
+  handleDisplayedComponent = (value) => {
+    this.setState({
+      showSignUpComponent: value,
+      showLoginComponent: value,
+      showArticleListComponent: true,
+    });
+  };
+
   showSignUpComponent = () => {
     this.setState({ showSignUpComponent: true, showLoginComponent: false });
   };
@@ -87,9 +95,17 @@ class NavbarComponent extends React.Component {
           </Nav>
         </Navbar>
         {this.state.showSignUpComponent && (
-          <SignUpComponent getUser={this.handleConnectedUser} />
+          <SignUpComponent
+            getUser={this.handleConnectedUser}
+            showComponent={this.handleDisplayedComponent}
+          />
         )}
-        {this.state.showLoginComponent && <LoginComponent />}
+        {this.state.showLoginComponent && (
+          <LoginComponent
+            getUser={this.handleConnectedUser}
+            showComponent={this.handleDisplayedComponent}
+          />
+        )}
         {this.state.showArticleListComponent &&
           !this.state.showSignUpComponent &&
           !this.state.showLoginComponent && <ArticlesListComponent />}

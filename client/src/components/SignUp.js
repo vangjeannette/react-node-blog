@@ -13,8 +13,17 @@ class SignUpComponent extends React.Component {
     };
   }
 
+  sendPropsToParent = (user, value) => {
+    this.sendData(user);
+    this.showComponent(value);
+  };
+
   sendData = (user) => {
     this.props.getUser(user);
+  };
+
+  showComponent = (value) => {
+    this.props.showComponent(value);
   };
 
   handleUsernameChange = (e) => {
@@ -34,7 +43,7 @@ class SignUpComponent extends React.Component {
     try {
       const response = await axios.post('/register', this.state);
       localStorage.setItem('token', response.data.token);
-      this.sendData(response.data.token);
+      this.sendPropsToParent(response.data.token, false);
     } catch (e) {
       console.log(e);
     }
@@ -68,10 +77,9 @@ class SignUpComponent extends React.Component {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="button" onClick={this.sendPropsToParent}>
           Submit
         </Button>
-        <button onClick={this.sendData}>OK</button>
       </form>
     );
   }
