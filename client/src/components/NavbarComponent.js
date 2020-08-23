@@ -7,16 +7,21 @@ import LoginComponent from './Login';
 import ArticlesListComponent from './ArticlesList';
 import AddArticleComponent from './AddArticle';
 class NavbarComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      isUserConnected: true,
+      isUserConnected: false,
       showLoginComponent: false,
       showSignUpComponent: false,
       showArticleListComponent: false,
       showAddArticleComponent: false,
+      userToken: '',
     };
   }
+
+  handleConnectedUser = async (token) => {
+    this.setState({ userToken: token, isUserConnected: true });
+  };
 
   showSignUpComponent = () => {
     this.setState({ showSignUpComponent: true, showLoginComponent: false });
@@ -81,14 +86,19 @@ class NavbarComponent extends React.Component {
             )}
           </Nav>
         </Navbar>
-        {this.state.showSignUpComponent && <SignUpComponent />}
+        {this.state.showSignUpComponent && (
+          <SignUpComponent getUser={this.handleConnectedUser} />
+        )}
         {this.state.showLoginComponent && <LoginComponent />}
         {this.state.showArticleListComponent &&
           !this.state.showSignUpComponent &&
           !this.state.showLoginComponent && <ArticlesListComponent />}
         {this.state.showAddArticleComponent &&
           !this.state.showLoginComponent &&
-          !this.state.showSignUpComponent && <AddArticleComponent />}
+          this.state.isUserConnected &&
+          !this.state.showSignUpComponent && (
+            <AddArticleComponent token={this.state.userToken} />
+          )}
       </div>
     );
   }

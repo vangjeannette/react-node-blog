@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
 class AddArticleComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       text: '',

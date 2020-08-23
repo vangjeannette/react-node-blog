@@ -4,14 +4,18 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
 class SignUpComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: '',
       password: '',
       email: '',
     };
   }
+
+  sendData = (user) => {
+    this.props.getUser(user);
+  };
 
   handleUsernameChange = (e) => {
     this.setState({ username: e.target.value });
@@ -29,7 +33,8 @@ class SignUpComponent extends React.Component {
     event.preventDefault();
     try {
       const response = await axios.post('/register', this.state);
-      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('token', response.data.token);
+      this.sendData(response.data.token);
     } catch (e) {
       console.log(e);
     }
@@ -62,9 +67,11 @@ class SignUpComponent extends React.Component {
             onChange={this.handlePasswordChange}
           />
         </Form.Group>
+
         <Button variant="primary" type="submit">
           Submit
         </Button>
+        <button onClick={this.sendData}>OK</button>
       </form>
     );
   }
